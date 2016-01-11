@@ -1,6 +1,6 @@
 {
   "name": "smart-query",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A node package to simplify querying tables for all their data and auto fetching foreign keys",
   "main": "index.js",
   "scripts": {
