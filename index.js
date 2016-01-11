@@ -1,4 +1,5 @@
-var mysql = require('mysql');
+var MySQL = require('mysql');
+var Promise = require('promise');
 
 var Compiler = require('./lib/compiler.js');
 
@@ -46,7 +47,7 @@ function SQuery() {
  */
 SQuery.prototype.connect = function(conn) {
     this.database = conn.database;
-    this.conn = mysql.createConnection(conn);
+    this.conn = MySQL.createConnection(conn);
     this.flags.isConnected = true;
     return this;
 }
@@ -54,7 +55,10 @@ SQuery.prototype.connect = function(conn) {
 /**
  * @description Compiles and executes the query
  */
-SQuery.prototype.resolve = function() {
+SQuery.prototype.resolve = function(accept, reject) {
+    var that = this;
+    reject = reject || function(err) {console.log(`SQuery.resolve() called without reject function, also: ${err}`)};
+    
     if (!this.flags.isConnected) {
         throw Error('No mysql connection established! Please set one using SQuery.connect(options)'); 
     }
@@ -63,7 +67,18 @@ SQuery.prototype.resolve = function() {
         throw Error('No table specified! Please set one using SQuery.from(table)');
     }
     
-    this.sql = this.compiler.compile();
+    // Compile the SQL statement
+    this.compiler.compile().then(function(query) {
+        that.conn.query(query, function(err, rows, fields) {
+            if (err) {
+                reject(`${err} from query:\n${query}`);
+            }
+            
+            accept(rows);  
+        })
+    }, function(err) {
+        reject(err);
+    });
     
     //this.data = this.conn.query(this.sql);
     

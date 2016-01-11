@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/JosephGarrone/smart-query#readme",
   "dependencies": {
-    "mysql": "^2.10.0"
+    "mysql": "^2.10.0",
+    "promise": "^7.1.1"
   }
 }
