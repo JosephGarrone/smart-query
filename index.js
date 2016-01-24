@@ -69,11 +69,12 @@ SQuery.prototype.resolve = function(accept, reject) {
     
     // Compile the SQL statement
     this.compiler.compile().then(function(query) {
+        that.sql = query;
         that.conn.query(query, function(err, rows, fields) {
             if (err) {
                 reject(`${err} from query:\n${query}`);
             }
-            
+            console.log(that.sql);
             accept(rows);  
         })
     }, function(err) {

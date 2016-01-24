@@ -1,6 +1,6 @@
 {
   "name": "smart-query",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A node package to simplify querying tables for all their data and auto fetching foreign keys",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,12 @@
     "generated-sql"
   ],
   "author": "Joseph J Garrone",
+  "contributors": [
+      {
+          "name": "Joseph J Garrone",
+          "email": "josephgarrone+npm@gmail.com"
+      }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/JosephGarrone/smart-query/issues"
@@ -26,5 +32,8 @@
   "dependencies": {
     "mysql": "^2.10.0",
     "promise": "^7.1.1"
+  },
+  "engines": {
+      "node": "*"
   }
 }
